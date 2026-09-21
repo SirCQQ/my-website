@@ -1,8 +1,22 @@
+import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { ArticleCard } from "@/components/site/article-card";
 import { getAllArticles } from "@/lib/content/articles";
 import type { Locale } from "@/i18n/routing";
+import { buildLanguageAlternates } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/[locale]/articles">): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "articles" });
+
+  return {
+    title: t("title"),
+    alternates: { languages: buildLanguageAlternates("/articles") },
+  };
+}
 
 export default async function ArticlesPage({
   params,

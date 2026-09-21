@@ -1,8 +1,22 @@
+import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { TimelineItem } from "@/components/site/timeline-item";
 import { getCvContent } from "@/lib/content/cv";
 import type { Locale } from "@/i18n/routing";
+import { buildLanguageAlternates } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/[locale]/work">): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "work" });
+
+  return {
+    title: t("title"),
+    alternates: { languages: buildLanguageAlternates("/work") },
+  };
+}
 
 export default async function WorkPage({ params }: PageProps<"/[locale]/work">) {
   const { locale } = await params;
