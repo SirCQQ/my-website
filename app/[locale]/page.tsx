@@ -1,14 +1,17 @@
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
+import { Hero } from "@/components/site/hero";
+import { getCvContent } from "@/lib/content/cv";
+import type { Locale } from "@/i18n/routing";
 
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("hero");
+  const cv = getCvContent(locale as Locale);
 
   return (
-    <div className="flex flex-1 items-center justify-center py-32">
-      <p className="text-2xl font-medium">{t("greeting")}</p>
-    </div>
+    <>
+      <Hero summary={cv.summary} />
+    </>
   );
 }
