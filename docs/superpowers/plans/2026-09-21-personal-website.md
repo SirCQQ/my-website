@@ -19,6 +19,7 @@
 - Every component under `components/ui/*` and `components/site/*` reads colors only via semantic Tailwind tokens (`bg-background`, `text-brand`, `text-muted-foreground`, ...), never raw colors — this is what keeps the extensible-theme mechanism (documented in `app/globals.css`) working without touching components.
 - No automated test framework exists and none is introduced (per spec §12, §10 — YAGNI). Each task's verification step is `yarn lint`, `yarn build` (for anything touching routes/pages — it statically generates both locales and exercises `generateStaticParams`), and a manual dev-server check at the URLs listed in that task.
 - Package manager is Yarn (`packageManager: yarn@1.22.22` in `package.json`) — use `yarn add` / `yarn <script>`, not `npm`.
+- Every route-segment layout/page component that reads `params.locale` and then calls an ambient (no-explicit-locale) `useTranslations()`/`getTranslations()` must call `setRequestLocale(locale)` (from `next-intl/server`) immediately after `await params`, before any translation call — otherwise next-intl's request-locale lookup falls back to reading `headers()`, which forces the whole route to dynamic rendering instead of the static output `generateStaticParams` is meant to produce. This applies to `app/[locale]/layout.tsx` and the top-level component of every page (`page.tsx`, `work/page.tsx`, `articles/page.tsx`, `articles/[slug]/page.tsx`) — not to nested section components (`Hero`, `AboutSection`, etc.), which render inside the same request and inherit the cached locale. `generateMetadata` functions that call `getTranslations({ locale, namespace })` with an explicit `locale` are unaffected and don't need this.
 - `next-intl` isn't installed yet, so its exact-version API can't be checked against local docs before Task 1 Step 1. The APIs used throughout this plan (`defineRouting`, `createNavigation`, `createMiddleware`, `hasLocale`, `getRequestConfig`, `NextIntlClientProvider`, `useTranslations`/`getTranslations`, `useFormatter`/`getFormatter`, `useLocale`, `t.raw()`) are stable, long-standing next-intl APIs. If any of them fail to compile after install, check `node_modules/next-intl/README.md` (or its `dist/types`) for the installed version before guessing.
 
 ---
@@ -330,6 +331,7 @@ Run: `rm app/layout.tsx app/page.tsx`
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -364,6 +366,7 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+  setRequestLocale(locale);
 
   return (
     <html
@@ -387,9 +390,12 @@ export default async function RootLayout({
 - [ ] **Step 11: Create `app/[locale]/page.tsx`** (minimal placeholder — replaced in Task 4)
 
 ```tsx
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
-export default async function HomePage() {
+export default async function HomePage({ params }: PageProps<"/[locale]">) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations("hero");
 
   return (
@@ -487,12 +493,12 @@ export const THEMES: ThemeOption[] = [
 ];
 ```
 
-- [ ] **Step 3: Update `components/theme-toggle.tsx`** to read labels from `next-intl`
+- [ ] **Step 3: Update `components/theme-toggle.tsx`** to read labels from `next-intl` (also fixes a pre-existing `react-hooks/set-state-in-effect` lint error on the mount-detection `useState`+`useEffect` pair — replaced with `useSyncExternalStore`, which the lint rule doesn't flag since no `setState` runs in an effect)
 
 ```tsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import { Moon, Sun } from "lucide-react";
@@ -506,12 +512,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+function subscribeNever() {
+  return () => {};
+}
+
+function useMounted() {
+  return useSyncExternalStore(
+    subscribeNever,
+    () => true,
+    () => false
+  );
+}
+
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const t = useTranslations("theme");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
+  const mounted = useMounted();
 
   return (
     <DropdownMenu>
@@ -1260,7 +1276,7 @@ export function TimelineItem({
 - [ ] **Step 5: Create `app/[locale]/work/page.tsx`**
 
 ```tsx
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { TimelineItem } from "@/components/site/timeline-item";
 import { getCvContent } from "@/lib/content/cv";
@@ -1268,6 +1284,8 @@ import type { Locale } from "@/i18n/routing";
 
 export default async function WorkPage({ params }: PageProps<"/[locale]/work">) {
   const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations("work");
   const cv = getCvContent(locale as Locale);
 
@@ -1461,12 +1479,15 @@ export function Hero({ summary }: { summary: string }) {
 - [ ] **Step 4: Replace `app/[locale]/page.tsx`**
 
 ```tsx
+import { setRequestLocale } from "next-intl/server";
 import { Hero } from "@/components/site/hero";
 import { getCvContent } from "@/lib/content/cv";
 import type { Locale } from "@/i18n/routing";
 
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
+  setRequestLocale(locale);
+
   const cv = getCvContent(locale as Locale);
 
   return (
@@ -1548,6 +1569,7 @@ export async function AboutSection({
 - [ ] **Step 2: Update `app/[locale]/page.tsx`**
 
 ```tsx
+import { setRequestLocale } from "next-intl/server";
 import { Hero } from "@/components/site/hero";
 import { AboutSection } from "@/components/site/about-section";
 import { getCvContent } from "@/lib/content/cv";
@@ -1555,6 +1577,8 @@ import type { Locale } from "@/i18n/routing";
 
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
+  setRequestLocale(locale);
+
   const cv = getCvContent(locale as Locale);
 
   return (
@@ -1680,6 +1704,7 @@ export async function ProjectsSection({ projects }: { projects: Project[] }) {
 - [ ] **Step 3: Update `app/[locale]/page.tsx`**
 
 ```tsx
+import { setRequestLocale } from "next-intl/server";
 import { Hero } from "@/components/site/hero";
 import { AboutSection } from "@/components/site/about-section";
 import { ProjectsSection } from "@/components/site/projects-section";
@@ -1688,6 +1713,8 @@ import type { Locale } from "@/i18n/routing";
 
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
+  setRequestLocale(locale);
+
   const cv = getCvContent(locale as Locale);
 
   return (
@@ -1852,6 +1879,7 @@ export async function ContactSection() {
 - [ ] **Step 3: Update `app/[locale]/page.tsx`**
 
 ```tsx
+import { setRequestLocale } from "next-intl/server";
 import { Hero } from "@/components/site/hero";
 import { AboutSection } from "@/components/site/about-section";
 import { ProjectsSection } from "@/components/site/projects-section";
@@ -1861,6 +1889,8 @@ import type { Locale } from "@/i18n/routing";
 
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
+  setRequestLocale(locale);
+
   const cv = getCvContent(locale as Locale);
 
   return (
@@ -2086,7 +2116,7 @@ export function ArticleCard({ article }: { article: ArticleSummary }) {
 - [ ] **Step 5: Create `app/[locale]/articles/page.tsx`**
 
 ```tsx
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { ArticleCard } from "@/components/site/article-card";
 import { getAllArticles } from "@/lib/content/articles";
@@ -2096,6 +2126,8 @@ export default async function ArticlesPage({
   params,
 }: PageProps<"/[locale]/articles">) {
   const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations("articles");
   const articles = getAllArticles(locale as Locale);
 
@@ -2152,7 +2184,7 @@ git commit -m "Add MDX articles loader and listing page"
 ```tsx
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { getFormatter, getTranslations } from "next-intl/server";
+import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/navigation";
 import { getAllArticleSlugs, getArticleBySlug } from "@/lib/content/articles";
@@ -2168,6 +2200,8 @@ export default async function ArticlePage({
   params,
 }: PageProps<"/[locale]/articles/[slug]">) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
+
   const article = getArticleBySlug(locale as Locale, slug);
   if (!article) notFound();
 
