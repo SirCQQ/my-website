@@ -7,6 +7,8 @@ import { routing } from "@/i18n/routing";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "@/lib/site-config";
+import { SiteHeader } from "@/components/site/site-header";
+import { SiteFooter } from "@/components/site/site-footer";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -47,7 +49,9 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider>
           <ThemeProvider>
+            <SiteHeader />
             <main className="flex flex-1 flex-col">{children}</main>
+            <SiteFooter />
             <Toaster />
           </ThemeProvider>
         </NextIntlClientProvider>
