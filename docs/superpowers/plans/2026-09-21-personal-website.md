@@ -1357,29 +1357,36 @@ git commit -m "Add bilingual CV content layer and /work timeline page"
 ```ts
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
 const TYPING_SPEED_MS = 55;
 const DELETING_SPEED_MS = 30;
 const PAUSE_AFTER_TYPED_MS = 1800;
 const PAUSE_AFTER_DELETED_MS = 300;
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+
+function subscribeToReducedMotion(callback: () => void) {
+  const mql = window.matchMedia(REDUCED_MOTION_QUERY);
+  mql.addEventListener("change", callback);
+  return () => mql.removeEventListener("change", callback);
+}
+
+function usePrefersReducedMotion(): boolean {
+  return useSyncExternalStore(
+    subscribeToReducedMotion,
+    () => window.matchMedia(REDUCED_MOTION_QUERY).matches,
+    () => false
+  );
+}
 
 export function useTypewriter(words: string[]): string {
+  const prefersReducedMotion = usePrefersReducedMotion();
   const [text, setText] = useState(words[0] ?? "");
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    if (words.length === 0) return;
-
-    const prefersReducedMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (prefersReducedMotion) {
-      setText(words[0]);
-      return;
-    }
+    if (words.length === 0 || prefersReducedMotion) return;
 
     const currentWord = words[wordIndex % words.length];
     const atFullWord = text === currentWord;
@@ -1405,11 +1412,14 @@ export function useTypewriter(words: string[]): string {
     }, delay);
 
     return () => clearTimeout(timeout);
-  }, [text, isDeleting, wordIndex, words]);
+  }, [text, isDeleting, wordIndex, words, prefersReducedMotion]);
 
+  if (prefersReducedMotion) return words[0] ?? "";
   return text;
 }
 ```
+
+No `eslint-disable` comment anywhere in this file — the `react-hooks/set-state-in-effect` rule that this codebase enforces (see Task 2's `theme-toggle.tsx` fix) is satisfied structurally: `setText`/`setIsDeleting`/`setWordIndex` only ever run inside the `setTimeout` callback (an approved "setState in a callback from an external system" pattern), never synchronously in the effect body. The reduced-motion branch needs no `setState` call at all — it reads the `useSyncExternalStore` value at render time instead.
 
 - [ ] **Step 2: Create `components/site/typewriter.tsx`**
 
