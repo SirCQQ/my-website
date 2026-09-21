@@ -130,6 +130,10 @@ export default getRequestConfig(async ({ requestLocale }) => {
   return {
     locale,
     messages: (await import(`../messages/${locale}.json`)).default,
+    // Fixed to avoid UTC-midnight date-only strings (e.g. article dates)
+    // rolling back a day when formatted on a machine whose local timezone
+    // is behind UTC.
+    timeZone: "Europe/Bucharest",
   };
 });
 ```
