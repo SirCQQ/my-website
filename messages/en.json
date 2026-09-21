@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "title": "Cristian Gatu — Full-Stack Developer",
+    "description": "Senior Full-Stack Engineer building scalable, API-driven systems across fintech, supply chain, and publishing. React, Next.js, Node.js, GraphQL, PostgreSQL."
+  },
+  "nav": {
+    "home": "Home",
+    "work": "Work",
+    "articles": "Articles",
+    "contact": "Contact",
+    "menu": "Menu"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "toggle": "Toggle theme"
+  },
+  "localeSwitcher": {
+    "label": "Change language"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "roles": ["front-end developer", "back-end developer", "full-stack developer"],
+    "ctaProjects": "View projects",
+    "ctaContact": "Contact me"
+  },
+  "about": {
+    "eyebrow": "About",
+    "title": "A bit about me",
+    "skillsTitle": "Core skills"
+  },
+  "projects": {
+    "eyebrow": "Selected work",
+    "title": "Projects",
+    "description": "A few things I've built or maintained along the way.",
+    "viewProject": "View project"
+  },
+  "work": {
+    "eyebrow": "Career",
+    "title": "Work experience",
+    "description": "Six-plus years building and scaling web applications across fintech, supply chain, and digital publishing.",
+    "educationTitle": "Education"
+  },
+  "articles": {
+    "eyebrow": "Writing",
+    "title": "Articles",
+    "description": "Notes and write-ups on things I've learned building software.",
+    "empty": "No articles published yet — check back soon.",
+    "readMore": "Read article",
+    "back": "Back to articles",
+    "readingTime": "{minutes, plural, one {# min read} other {# min read}}"
+  },
+  "contact": {
+    "eyebrow": "Get in touch",
+    "title": "Contact",
+    "description": "Have a project in mind or just want to say hi? Send me a message.",
+    "nameLabel": "Name",
+    "nameError": "Please enter at least 2 characters.",
+    "emailLabel": "Email",
+    "emailError": "Please enter a valid email address.",
+    "messageLabel": "Message",
+    "messageError": "Please enter at least 10 characters.",
+    "send": "Send message",
+    "sending": "Sending...",
+    "successTitle": "Message sent",
+    "successDescription": "Thanks for reaching out — I'll get back to you soon."
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}

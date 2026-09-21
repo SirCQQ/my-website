@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "title": "Cristian Gatu — Dezvoltator Full-Stack",
+    "description": "Inginer Full-Stack Senior care construiește sisteme scalabile, bazate pe API, în fintech, supply chain și publicare digitală. React, Next.js, Node.js, GraphQL, PostgreSQL."
+  },
+  "nav": {
+    "home": "Acasă",
+    "work": "Experiență",
+    "articles": "Articole",
+    "contact": "Contact",
+    "menu": "Meniu"
+  },
+  "theme": {
+    "light": "Luminos",
+    "dark": "Întunecat",
+    "system": "Sistem",
+    "toggle": "Schimbă tema"
+  },
+  "localeSwitcher": {
+    "label": "Schimbă limba"
+  },
+  "hero": {
+    "greeting": "Salut, sunt",
+    "roles": ["dezvoltator front-end", "dezvoltator back-end", "dezvoltator full-stack"],
+    "ctaProjects": "Vezi proiectele",
+    "ctaContact": "Contactează-mă"
+  },
+  "about": {
+    "eyebrow": "Despre mine",
+    "title": "Câteva lucruri despre mine",
+    "skillsTitle": "Competențe cheie"
+  },
+  "projects": {
+    "eyebrow": "Proiecte selectate",
+    "title": "Proiecte",
+    "description": "Câteva lucruri la care am lucrat sau pe care le întrețin.",
+    "viewProject": "Vezi proiectul"
+  },
+  "work": {
+    "eyebrow": "Carieră",
+    "title": "Experiență profesională",
+    "description": "Peste șase ani de experiență în construirea și scalarea aplicațiilor web în fintech, supply chain și publicare digitală.",
+    "educationTitle": "Educație"
+  },
+  "articles": {
+    "eyebrow": "Scriu despre",
+    "title": "Articole",
+    "description": "Notițe și articole despre lucruri pe care le-am învățat construind software.",
+    "empty": "Niciun articol publicat încă — revino în curând.",
+    "readMore": "Citește articolul",
+    "back": "Înapoi la articole",
+    "readingTime": "{minutes, plural, one {# minut de citit} few {# minute de citit} other {# de minute de citit}}"
+  },
+  "contact": {
+    "eyebrow": "Hai să vorbim",
+    "title": "Contact",
+    "description": "Ai un proiect în minte sau vrei doar să spui salut? Trimite-mi un mesaj.",
+    "nameLabel": "Nume",
+    "nameError": "Te rog introdu cel puțin 2 caractere.",
+    "emailLabel": "Email",
+    "emailError": "Te rog introdu o adresă de email validă.",
+    "messageLabel": "Mesaj",
+    "messageError": "Te rog introdu cel puțin 10 caractere.",
+    "send": "Trimite mesajul",
+    "sending": "Se trimite...",
+    "successTitle": "Mesaj trimis",
+    "successDescription": "Mulțumesc că ai scris — revin cu un răspuns cât de curând."
+  },
+  "footer": {
+    "rights": "Toate drepturile rezervate."
+  }
+}
