@@ -7,7 +7,7 @@ import { siteConfig } from "@/lib/site-config";
 
 export function Hero({ summary }: { summary: string }) {
   const t = useTranslations("hero");
-  const roles = t.raw("roles") as string[];
+  const roles = (t.raw("roles") as string[] | undefined) ?? [];
 
   return (
     <section className="py-28 sm:py-36">

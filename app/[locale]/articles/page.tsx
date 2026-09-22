@@ -30,6 +30,7 @@ export default async function ArticlesPage({
   return (
     <Section>
       <SectionHeading
+        as="h1"
         eyebrow={t("eyebrow")}
         title={t("title")}
         description={t("description")}

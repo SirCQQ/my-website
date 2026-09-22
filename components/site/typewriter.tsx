@@ -10,7 +10,7 @@ export function Typewriter({ words }: { words: string[] }) {
       {text}
       <span
         aria-hidden
-        className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[0.15em] animate-pulse bg-brand align-middle"
+        className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[0.15em] animate-pulse motion-reduce:animate-none bg-brand align-middle"
       />
     </span>
   );

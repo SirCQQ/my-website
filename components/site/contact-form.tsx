@@ -52,10 +52,13 @@ export function ContactForm() {
           id="name"
           autoComplete="name"
           aria-invalid={!!errors.name}
+          aria-describedby={errors.name ? "name-error" : undefined}
           {...register("name")}
         />
         {errors.name ? (
-          <p className="text-sm text-destructive">{t("nameError")}</p>
+          <p id="name-error" role="alert" className="text-sm text-destructive">
+            {t("nameError")}
+          </p>
         ) : null}
       </div>
       <div className="flex flex-col gap-1.5">
@@ -65,10 +68,13 @@ export function ContactForm() {
           type="email"
           autoComplete="email"
           aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? "email-error" : undefined}
           {...register("email")}
         />
         {errors.email ? (
-          <p className="text-sm text-destructive">{t("emailError")}</p>
+          <p id="email-error" role="alert" className="text-sm text-destructive">
+            {t("emailError")}
+          </p>
         ) : null}
       </div>
       <div className="flex flex-col gap-1.5">
@@ -77,10 +83,13 @@ export function ContactForm() {
           id="message"
           rows={5}
           aria-invalid={!!errors.message}
+          aria-describedby={errors.message ? "message-error" : undefined}
           {...register("message")}
         />
         {errors.message ? (
-          <p className="text-sm text-destructive">{t("messageError")}</p>
+          <p id="message-error" role="alert" className="text-sm text-destructive">
+            {t("messageError")}
+          </p>
         ) : null}
       </div>
       <Button type="submit" disabled={isSubmitting} className="self-start">

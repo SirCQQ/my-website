@@ -68,5 +68,10 @@
   },
   "footer": {
     "rights": "Toate drepturile rezervate."
+  },
+  "notFound": {
+    "title": "Pagina nu a fost găsită",
+    "description": "Pagina pe care o cauți nu există sau a fost mutată.",
+    "homeLink": "Înapoi la pagina principală"
   }
 }
