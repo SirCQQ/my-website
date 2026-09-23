@@ -35,7 +35,12 @@ export async function generateMetadata({
     ? routing.defaultLocale
     : availableLocales[0];
   languages["x-default"] = `${siteConfig.url}/${xDefaultLocale}/articles/${slug}`;
-  const social = buildSocialMetadata(locale as Locale, article.title, article.excerpt);
+  const social = buildSocialMetadata(
+    locale as Locale,
+    `/articles/${slug}`,
+    article.title,
+    article.excerpt
+  );
 
   return {
     title: article.title,

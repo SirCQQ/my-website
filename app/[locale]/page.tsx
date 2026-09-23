@@ -18,7 +18,7 @@ export async function generateMetadata({
   return {
     title: t("title"),
     alternates: buildAlternates("", locale as Locale),
-    ...buildSocialMetadata(locale as Locale, t("title"), t("description")),
+    ...buildSocialMetadata(locale as Locale, "", t("title"), t("description")),
   };
 }
 

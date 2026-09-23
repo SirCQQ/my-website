@@ -35,7 +35,7 @@ export async function generateMetadata({
     metadataBase: new URL(siteConfig.url),
     // Sitewide fallback — every page overrides these with its own
     // title/description via buildSocialMetadata().
-    ...buildSocialMetadata(locale as Locale, t("title"), t("description")),
+    ...buildSocialMetadata(locale as Locale, "", t("title"), t("description")),
   };
 }
 

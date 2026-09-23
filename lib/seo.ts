@@ -35,9 +35,10 @@ const OG_LOCALES: Record<Locale, string> = {
 
 /** Shared Open Graph + Twitter Card fields. The actual image is supplied
  * automatically by app/[locale]/opengraph-image.tsx for every page in the
- * locale segment, so callers only need title/description here. */
+ * locale segment, so callers only need pathname/title/description here. */
 export function buildSocialMetadata(
   locale: Locale,
+  pathname: string,
   title: string,
   description: string
 ): Pick<Metadata, "openGraph" | "twitter"> {
@@ -45,6 +46,7 @@ export function buildSocialMetadata(
     openGraph: {
       title,
       description,
+      url: `${siteConfig.url}/${locale}${pathname}`,
       siteName: siteConfig.name,
       locale: OG_LOCALES[locale],
       type: "website",
