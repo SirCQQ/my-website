@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Cristian Gatu — Dezvoltator Full-Stack",
+    "title": "Cristian Gatu — Developer Full-Stack",
     "description": "Inginer Full-Stack Senior care construiește sisteme scalabile, bazate pe API, în fintech, supply chain și publicare digitală. React, Next.js, Node.js, GraphQL, PostgreSQL."
   },
   "nav": {
@@ -19,9 +19,26 @@
   "localeSwitcher": {
     "label": "Schimbă limba"
   },
+  "motion": {
+    "disable": "Dezactivează animațiile",
+    "enable": "Activează animațiile"
+  },
+  "commandPalette": {
+    "triggerLabel": "Caută sau rulează o comandă...",
+    "description": "Caută o pagină sau rulează o comandă",
+    "placeholder": "Tastează o comandă sau caută...",
+    "empty": "Niciun rezultat găsit.",
+    "groupNavigation": "Navigare",
+    "groupArticles": "Articole",
+    "groupActions": "Acțiuni",
+    "groupLinks": "Linkuri",
+    "setTheme": "Schimbă la tema {theme}",
+    "switchLanguage": "Schimbă la {language}",
+    "sendEmail": "Trimite un email"
+  },
   "hero": {
     "greeting": "Salut, sunt",
-    "roles": ["dezvoltator front-end", "dezvoltator back-end", "dezvoltator full-stack"],
+    "roles": ["front-end developer", "back-end developer", "full-stack developer"],
     "ctaProjects": "Vezi proiectele",
     "ctaContact": "Contactează-mă"
   },
@@ -39,7 +56,7 @@
   "work": {
     "eyebrow": "Carieră",
     "title": "Experiență profesională",
-    "description": "Peste șase ani de experiență în construirea și scalarea aplicațiilor web în fintech, supply chain și publicare digitală.",
+    "description": "Peste {years} ani de experiență în construirea și scalarea aplicațiilor web în fintech, supply chain și publicare digitală.",
     "educationTitle": "Educație"
   },
   "articles": {

@@ -1,0 +1,287 @@
+{
+  "sources": ["LinkedIn profile", "CV - Cristian Gatu.pdf", "https://sircqq.vercel.app/work"],
+  "profile": "https://www.linkedin.com/in/cristian-gatu-06b0811a1/",
+  "personal": {
+    "name": "Cristian Gatu",
+    "title": "Full-Stack Developer / Senior Full-Stack Engineer",
+    "email": "gatucristian@gmail.com",
+    "phone": "0745412413",
+    "location": "Iași, Romania"
+  },
+  "summary": "Senior Full-Stack Engineer building scalable, API-driven systems across fintech, supply chain, and publishing. Strong in React, Next.js, Node.js, GraphQL, and PostgreSQL, with a focus on architecture, performance, cloud (AWS), and critical thinking in solving complex technical problems.",
+  "education": [
+    {
+      "degree": "Bachelor Degree",
+      "institution": "\"Alexandru Ioan Cuza\" University of Computer Science",
+      "period": "iun. 2017 - iul. 2020"
+    }
+  ],
+  "languages": ["Romana", "Engleza"],
+  "core_skills": [
+    "JavaScript", "React.JS", "Node.js", "TypeScript", "PostgreSQL", "Next.JS", "GraphQL"
+  ],
+  "experience": [
+    {
+      "title": "Full Stack Developer",
+      "company": "rinf.tech",
+      "employmentType": "Full-time",
+      "location": "Iasi",
+      "period": "martie 2025 - Prezent",
+      "technologies": ["React", "TypeScript", "PostgreSQL", "GraphQL", "AWS", "SQS"],
+      "description": [
+        "Working with modern technologies like React, TypeScript, PostgreSQL, GraphQL, and AWS (including SQS) to design and scale robust web applications",
+        "Collaborating with architects and senior engineers on system design and architectural decisions",
+        "Driving technical discussions and contributing to scalable, maintainable system architecture",
+        "Working in an Agile environment, actively shaping sprint planning and technical direction",
+        "Building high-quality features with clean, maintainable code and strong engineering standards",
+        "Optimizing database performance and ensuring efficient data access patterns",
+        "Debugging complex issues and improving reliability across distributed systems"
+      ]
+    },
+    {
+      "title": "Full-Stack Developer",
+      "company": "Payset",
+      "employmentType": "Contract",
+      "location": "Remote",
+      "period": "aprilie 2024 - mai 2025",
+      "technologies": ["React", "Remix", "TypeScript", "NestJS", "PostgreSQL"],
+      "description": [
+        "Building and scaling fintech applications using React (customer-facing) and Remix (back-office), with TypeScript and NestJS in a microservices architecture",
+        "Designing distributed systems handling financial data flows, with focus on reliability, consistency, and data integrity",
+        "Integrating with third-party systems and external APIs, ensuring secure and reliable data exchange",
+        "Collaborating with architects and senior engineers on system design, service boundaries, and integration patterns",
+        "Developing and integrating secure, performant APIs across services in a banking environment",
+        "Contributing to architectural decisions ensuring scalability, fault tolerance, and maintainability",
+        "Working in an Agile environment, actively shaping technical direction and sprint planning",
+        "Debugging complex cross-service issues and improving system stability in production environments"
+      ]
+    },
+    {
+      "title": "Full-Stack Developer",
+      "company": "Eviden",
+      "employmentType": "Full-time",
+      "location": "Remote",
+      "period": "martie 2024 - aprilie 2025",
+      "technologies": ["Next.js", "TypeScript", "PostgreSQL", "AWS"],
+      "description": [
+        "Working with modern technologies like Next.js, TypeScript, PostgreSQL, and AWS to build and scale web applications",
+        "Working in an Agile environment",
+        "Actively contributing to sprint planning and technical decision-making",
+        "Developing new features with clean, maintainable code following best practices",
+        "Optimizing database queries and improving application performance",
+        "Debugging, fixing issues, and maintaining existing systems"
+      ]
+    },
+    {
+      "title": "Full-Stack Developer",
+      "company": "Haufe Group",
+      "projects_from_portfolio": [
+        {
+          "name": "Gemini",
+          "description": "Rewrite of an old company application — a blog-style platform for the HR industry where companies post articles/services. A big hit in Germany, ~90% market margin.",
+          "responsibilities": [
+            "Write clean and maintainable code",
+            "Implementing pixel perfect designs",
+            "Code Review",
+            "Creating scalable infrastructure using Pulumi"
+          ],
+          "technologies": ["JavaScript", "CSS", "MySQL", "SQL", "Node.js", "TypeScript", "Git", "SASS", "HTML", "Next.js", "React", "Remix", "AWS", "Pulumi"],
+          "source_note": "Confirmed: the portfolio's 'Present' date is just outdated/not maintained — the role ended martie 2024 per the CV."
+        }
+      ],
+      "employmentType": "Full-time",
+      "location": "Remote",
+      "period": "noiembrie 2022 - martie 2024",
+      "technologies": [
+        "Remix", "GraphQL", "TypeScript", "AWS", "Pulumi",
+        "React", "Tailwind", "Express", "MongoDB", "PostgreSQL", "Next.js"
+      ],
+      "description": [
+        "Project 1: Rewrote an old company application using Remix, GraphQL, TypeScript, AWS, and Pulumi (Infrastructure as Code)",
+        "Worked in an Agile environment, participating in sprint planning",
+        "Added new features writing clean code following best practices",
+        "Resolved bugs and maintained the old codebase",
+        "Project 2: Built with React, Tailwind, AWS, Express, MongoDB, TypeScript",
+        "Resolved bugs and maintained the existing codebase"
+      ]
+    },
+    {
+      "title": "Full-Stack Developer",
+      "company": "Seed2shelf Inc",
+      "employmentType": "Contract / Freelance",
+      "location": "Romania / Remote",
+      "period": "decembrie 2021 - iulie 2022",
+      "technologies": [
+        "TypeScript", "Node.js", "React.js", "MariaDB", "Jira",
+        "Agile Methodologies", "GitHub", "Next.js", "Bitbucket",
+        "NestJS", "Software Development", "Full-Stack Development"
+      ],
+      "description": [
+        "Developed front-end website architecture",
+        "Built the architecture for the APIs",
+        "Created servers and databases for functionality",
+        "Designed and developed APIs",
+        "Wrote technical documentation",
+        "Reviewed code from team members",
+        "Held daily meetings with the team",
+        "Mentored 2 Juniors to help them grow and become better developers",
+        "Created tasks to set clear goals for sprints, improving speed and efficiency of development",
+        "Worked in an Agile environment"
+      ],
+      "projects_from_portfolio": [
+        {
+          "name": "Seed2Shelf Application",
+          "description": "SaaS helping production labs organize workflows, track inventory and transports, with seamless integration with Metrc.",
+          "responsibilities": [
+            "Created the architecture of the application, Frontend and Backend",
+            "Write clean and maintainable code",
+            "Implementing pixel perfect designs",
+            "Leading a team of 4 developers",
+            "Helping 2 other juniors on different projects",
+            "Creating technical requirements from client requirements",
+            "Code Review",
+            "Creating an organized workflow for the team, assigning tasks and checking progress"
+          ],
+          "technologies": ["JavaScript", "CSS", "MySQL", "SQL", "Node.js", "Redux", "TypeScript", "Git", "SASS", "HTML", "Next.js", "React", "NestJs", "REST API"],
+          "source_note": "Confirmed: use the 'mentoring 2 juniors' framing (LinkedIn/CV) for the final scenario, not 'leading a team of 4 developers'."
+        }
+      ]
+    },
+    {
+      "title": "Full-Stack Developer",
+      "company": "Skywind Group",
+      "employmentType": "Full-time",
+      "location": "Iasi",
+      "period": "octombrie 2020 - iunie 2021",
+      "technologies": [
+        "styled-components", "MongoDB", "TypeScript", "Node.js",
+        "React.js", "Express.js", "GitHub", "Redux.js", "MySQL",
+        "Full-Stack Development"
+      ],
+      "description": [
+        "Wrote effective APIs",
+        "Troubleshot, debugged and upgraded software",
+        "Wrote technical documentation",
+        "Wrote reusable React components using Styled-Components",
+        "Added new functionality to an old codebase and created a unique user experience"
+      ],
+      "projects_from_portfolio": [
+        {
+          "name": "Pariuri1X2",
+          "description": "Local sports site where people write articles/opinions or upload videos about games (mainly football/soccer) and bet on winning teams.",
+          "responsibilities": [
+            "Maintaining the old code base and fixing bugs",
+            "Write clean and maintainable code",
+            "Adding new functionality to the old features",
+            "Creating a new calendar on the main page, connecting different games with articles tagged to that game or team"
+          ],
+          "technologies": ["React", "Express", "MySQL", "MongoDB", "Redis", "SCSS", "TypeScript", "Redux"]
+        },
+        {
+          "name": "Optimrent",
+          "description": "Local app helping renters and owners communicate and pay bills — helps owners/administrators manage properties, bills, and repairs, with tenants seeing full history in one app.",
+          "responsibilities": [
+            "Maintaining or rewriting the old code base and fixing bugs",
+            "Write clean and maintainable code",
+            "Implementing pixel-perfect designs",
+            "Connecting the frontend with the backend module for subscriptions and related business logic"
+          ],
+          "technologies": ["React", "SCSS", "JavaScript", "Styled-Components", "Redux", "TypeScript"],
+          "source_note": "Confirmed: another project done at Skywind Group (same company/period as Pariuri1X2)."
+        }
+      ]
+    },
+    {
+      "title": "Intern / Web Application Developer",
+      "company": "OSRAM Continental",
+      "employmentType": "Full-time / Internship",
+      "location": "Iași, Romania",
+      "period": "februarie 2019 - mai 2021",
+      "technologies": ["TypeScript", "Node.js", "React.js", "Express.js", "MySQL"],
+      "description": [
+        "Built and maintained web applications used to enhance teams' productivity and help deliver faster",
+        "Created new features and wrote clean, maintainable code"
+      ],
+      "projects_from_portfolio": [
+        {
+          "name": "Parameter Manager",
+          "description": "An app where you upload an Excel file with a predefined structure; the app parses it and lets developers group specific parameters into sub-modules, among other things.",
+          "responsibilities": [
+            "Understanding requirements and implementing features based on them",
+            "Write clean and maintainable code",
+            "Optimization for large data",
+            "Mentoring the new intern",
+            "Code Review"
+          ],
+          "technologies": ["React", "Electron", "Flask", "Node.js", "MySQL", "JavaScript", "HTML", "CSS", "Bootstrap"],
+          "source_note": "Confirmed accurate — Electron and Flask were used on this project, but haven't been used since."
+        }
+      ]
+    },
+    {
+      "title": "Full-Stack Developer",
+      "company": "Bytex Technologies",
+      "employmentType": "Full-time",
+      "location": "Iasi",
+      "period": "februarie 2019 - aprilie 2020",
+      "period_note": "Corrected: overlapped with the OSRAM Continental internship, confirmed as accurate (the original CV/LinkedIn date of Jun 2021 - Mar 2022 was wrong).",
+      "technologies": [
+        "JavaScript", "ChakraUI", "Node.js", "React.js", "Jira",
+        "Agile Methodologies", "Gitlab", "Git", "GraphQL", "MySQL",
+        "Full-Stack Development"
+      ],
+      "description": [
+        "Implemented part of the UI using ReactJS, Chakra-UI and GraphQL",
+        "Developed new backend features and improved existing ones to keep up with industry standards",
+        "Used Node.js to dynamically generate PDFs, send emails, and process actions via queues for a large existing user base",
+        "Tested and fixed bugs or other coding issues",
+        "Designed user interactions on web pages"
+      ],
+      "projects_from_portfolio": [
+        {
+          "name": "Powercode",
+          "description": "Application helping TV, Internet and Telephone providers organize their clients and services better.",
+          "responsibilities": [
+            "Maintaining the old code base and fixing bugs",
+            "Write clean and maintainable code",
+            "Implementing pixel-perfect designs",
+            "Code Review",
+            "Worked on generating invoices and sending the PDF via user email",
+            "User Defined Fields",
+            "User Notification",
+            "User Permissions"
+          ],
+          "technologies": ["JavaScript", "CSS", "MySQL", "SQL", "Node.js", "Redux", "TypeScript", "GraphQL", "Git", "SASS", "HTML", "Next.js", "React"]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Confirmed: Payset and Eviden were two separate, simultaneous projects/contracts (not a staffing/client relationship).",
+    "Confirmed: no certifications.",
+    "Confirmed: PostgreSQL used at Haufe, Eviden, Payset, and rinf.tech (added to those roles' tech lists).",
+    "Confirmed: Next.js used at Seed2shelf, Haufe, Eviden, and in personal projects (added to Haufe's tech list; Seed2shelf and Eviden already had it).",
+    "Confirmed: Optimrent was another Skywind Group project (not separate/personal).",
+    "Confirmed: OSRAM/Bytex overlap and the Electron/Flask stack on the Parameter Manager project are accurate (Electron/Flask not used since).",
+    "Confirmed: use 'mentoring 2 juniors' as the framing for Seed2shelf, not 'leading a team of 4 developers'.",
+    "Confirmed: Haufe 'Gemini' project ended martie 2024 — the 'Present' label on the portfolio is just outdated.",
+    "Confirmed: Bytex Technologies period corrected to februarie 2019 - aprilie 2020 (overlapping OSRAM), replacing the wrong CV/LinkedIn date; reordered chronologically next to OSRAM below.",
+    "Confirmed: no other relevant personal projects beyond the portfolio site and the Catena Electric tool; no public links to attach anywhere."
+  ],
+  "personal_projects": [
+    {
+      "name": "Personal portfolio site",
+      "url": "https://sircqq.vercel.app",
+      "technologies": ["Next.js"]
+    },
+    {
+      "name": "Internal tool for Catena Electric Iași",
+      "client": "Catena Electric Iași (catenaelectric.ro)",
+      "description": "Internal tool (freelance/personal side project) for creating and editing contracts and addenda (acte adiționale), plus a client database.",
+      "technologies": ["Next.js", "MongoDB"],
+      "period": "2022 - prezent (mentenanță ocazională; ultima intervenție în 2025)"
+    }
+  ],
+  "gaps_and_open_questions": [],
+  "status": "complete — no open questions remaining, ready to use as the source of truth for a CV/scenario."
+}

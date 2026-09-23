@@ -4,9 +4,12 @@ import { siteConfig } from "@/lib/site-config";
 import { Container } from "@/components/ui/container";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LocaleSwitcher } from "@/components/site/locale-switcher";
+import { MotionToggle } from "@/components/site/motion-toggle";
+import { CommandPalette } from "@/components/site/command-palette";
 import { MobileNav } from "@/components/site/mobile-nav";
+import type { ArticleSummary } from "@/lib/content/articles";
 
-export function SiteHeader() {
+export function SiteHeader({ articles }: { articles: ArticleSummary[] }) {
   const t = useTranslations("nav");
 
   return (
@@ -26,9 +29,11 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
+          <CommandPalette articles={articles} />
           <LocaleSwitcher />
           <ThemeToggle />
+          <MotionToggle />
           <MobileNav />
         </div>
       </Container>

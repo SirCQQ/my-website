@@ -2,10 +2,10 @@ import type { CvContent } from "./cv";
 
 export const ro: CvContent = {
   summary:
-    "Inginer Full-Stack Senior cu peste 6 ani de experiență în proiectarea și scalarea sistemelor bazate pe API în fintech, supply chain și publicare digitală. Expertiză solidă în React, Next.js, Node.js, GraphQL și PostgreSQL, cu accent pe arhitectura sistemelor, performanță și infrastructură cloud (AWS). Confortabil în a lua decizii tehnice, a colabora cu arhitecții la proiectarea sistemelor și a îndruma ingineri juniori.",
+    "Inginer Full-Stack Senior cu peste {{years}} ani de experiență în proiectarea și scalarea sistemelor bazate pe API în fintech, supply chain și publicare digitală. Expertiză solidă în React, Next.js, Node.js, GraphQL și PostgreSQL, cu accent pe arhitectura sistemelor, performanță și infrastructură cloud (AWS). Confortabil în a lua decizii tehnice, a colabora cu arhitecții la proiectarea sistemelor și a îndruma ingineri juniori.",
   about: {
     paragraphs: [
-      "Sunt Inginer Full-Stack Senior din Iași, cu peste 6 ani de experiență în construirea și scalarea sistemelor bazate pe API pentru companii din fintech, supply chain și publicare digitală. Activitatea mea zilnică se concentrează pe React, Next.js, Node.js, GraphQL și PostgreSQL, dar îmi pasă la fel de mult de tot ce înconjoară codul — arhitectură, performanță și infrastructura cloud pe care rulează.",
+      "Sunt Inginer Full-Stack Senior din Iași, cu peste {{years}} ani de experiență în construirea și scalarea sistemelor bazate pe API pentru companii din fintech, supply chain și publicare digitală. Activitatea mea zilnică se concentrează pe React, Next.js, Node.js, GraphQL și PostgreSQL, dar îmi pasă la fel de mult de tot ce înconjoară codul — arhitectură, performanță și infrastructura cloud pe care rulează.",
       "Am condus rescrieri de aplicații legacy, am construit produse de la zero și am petrecut mult timp în munca mai puțin vizibilă, dar esențială, de a menține sistemele distribuite fiabile. Îmi place să colaborez îndeaproape cu arhitecții la design-ul sistemelor și mă bucur să îndrum ingineri juniori — un code review bun e una dintre cele mai bune metode pe care le știu pentru a ridica nivelul unei echipe.",
       "În afara proiectelor pentru clienți, mai am câteva proiecte personale active, inclusiv acest site, și sunt mereu în căutarea următoarei probleme interesante de rezolvat.",
     ],
@@ -21,7 +21,7 @@ export const ro: CvContent = {
   ],
   experience: [
     {
-      title: "Dezvoltator Full-Stack",
+      title: "Developer Full-Stack",
       company: "rinf.tech",
       location: "Iași",
       period: "Martie 2025 – Prezent",
@@ -36,7 +36,7 @@ export const ro: CvContent = {
       stack: ["React", "TypeScript", "PostgreSQL", "GraphQL", "AWS", "SQS"],
     },
     {
-      title: "Dezvoltator Full-Stack (Contract)",
+      title: "Developer Full-Stack (Contract)",
       company: "Payset",
       location: "Remote",
       period: "Aprilie 2024 – Mai 2025",
@@ -52,7 +52,7 @@ export const ro: CvContent = {
       stack: ["React", "Remix", "TypeScript", "NestJS", "PostgreSQL"],
     },
     {
-      title: "Dezvoltator Full-Stack",
+      title: "Developer Full-Stack",
       company: "Eviden",
       location: "Remote",
       period: "Martie 2024 – Aprilie 2025",
@@ -66,7 +66,7 @@ export const ro: CvContent = {
       stack: ["Next.js", "TypeScript", "PostgreSQL", "AWS"],
     },
     {
-      title: "Dezvoltator Full-Stack",
+      title: "Developer Full-Stack",
       company: "Haufe Group",
       location: "Remote",
       period: "Noiembrie 2022 – Martie 2024",
@@ -93,7 +93,7 @@ export const ro: CvContent = {
       ],
     },
     {
-      title: "Dezvoltator Full-Stack (Contract / Freelance)",
+      title: "Developer Full-Stack (Contract / Freelance)",
       company: "Seed2shelf Inc",
       location: "România / Remote",
       period: "Decembrie 2021 – Iulie 2022",
@@ -102,13 +102,13 @@ export const ro: CvContent = {
       highlights: [
         "Am proiectat și construit de la zero arhitectura front-end și stratul de API",
         "Am redactat documentație tehnică și am coordonat code review-urile echipei",
-        "Am îndrumat doi dezvoltatori juniori, susținându-le dezvoltarea tehnică",
+        "Am îndrumat doi ingineri juniori, susținându-le dezvoltarea tehnică",
         "Am tradus cerințele clienților în task-uri tehnice clare și obiective de sprint",
       ],
       stack: ["TypeScript", "Node.js", "React", "Next.js", "NestJS", "MariaDB", "Bitbucket"],
     },
     {
-      title: "Dezvoltator Full-Stack",
+      title: "Developer Full-Stack",
       company: "Skywind Group",
       location: "Iași",
       period: "Octombrie 2020 – Iunie 2021",
@@ -122,7 +122,7 @@ export const ro: CvContent = {
       stack: ["React", "Redux", "Express", "MongoDB", "MySQL", "Redis", "Styled-Components", "TypeScript"],
     },
     {
-      title: "Dezvoltator Full-Stack",
+      title: "Developer Full-Stack",
       company: "Bytex Technologies",
       location: "Iași",
       period: "Februarie 2019 – Aprilie 2020",
@@ -136,7 +136,7 @@ export const ro: CvContent = {
       stack: ["JavaScript", "TypeScript", "Node.js", "React", "GraphQL", "MySQL"],
     },
     {
-      title: "Dezvoltator de Aplicații Web (Internship)",
+      title: "Developer de Aplicații Web (Internship)",
       company: "OSRAM Continental",
       location: "Iași",
       period: "Februarie 2019 – Mai 2021",
@@ -164,7 +164,27 @@ export const ro: CvContent = {
       description:
         "Unealtă internă freelance pentru redactarea și editarea contractelor și actelor adiționale, cu bază de date de clienți integrată.",
       period: "2022 – prezent (mentenanță ocazională)",
+      url: "https://catenaelectric.ro/",
+      image: "/images/catena.jpg",
       stack: ["Next.js", "MongoDB"],
+    },
+    {
+      name: "Seed2Shelf",
+      description:
+        "O platformă SaaS care ajută laboratoare de producție să gestioneze inventarul, transportul și fluxul de lucru, inclusiv integrarea cu Metrc. Am fost responsabil de arhitectura front-end și API.",
+      period: "Decembrie 2021 – Iulie 2022",
+      url: "http://seed2shelf.us/",
+      image: "/images/s2s-logo.png",
+      stack: ["TypeScript", "Node.js", "React", "Next.js", "NestJS", "MariaDB"],
+    },
+    {
+      name: "Powercode",
+      description:
+        "O aplicație care ajută furnizorii de telecomunicații (TV, Internet, Telefonie) să gestioneze clienții și serviciile — generarea facturilor, notificări și gestionarea permisiunilor.",
+      period: "Februarie 2019 – Aprilie 2020",
+      url: "https://powercode.com",
+      image: "/images/powercode-logo.png",
+      stack: ["JavaScript", "TypeScript", "Node.js", "React", "GraphQL", "MySQL"],
     },
     {
       name: "Portofoliu Personal",

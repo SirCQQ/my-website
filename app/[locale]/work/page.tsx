@@ -2,19 +2,21 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { TimelineItem } from "@/components/site/timeline-item";
-import { getCvContent } from "@/lib/content/cv";
+import { getCvContent, getYearsOfExperience } from "@/lib/content/cv";
 import type { Locale } from "@/i18n/routing";
-import { buildLanguageAlternates } from "@/lib/seo";
+import { buildAlternates, buildSocialMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/work">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "work" });
+  const description = t("description", { years: getYearsOfExperience() });
 
   return {
     title: t("title"),
-    alternates: { languages: buildLanguageAlternates("/work") },
+    alternates: buildAlternates("/work", locale as Locale),
+    ...buildSocialMetadata(locale as Locale, t("title"), description),
   };
 }
 
@@ -31,13 +33,14 @@ export default async function WorkPage({ params }: PageProps<"/[locale]/work">) 
         as="h1"
         eyebrow={t("eyebrow")}
         title={t("title")}
-        description={t("description")}
+        description={t("description", { years: getYearsOfExperience() })}
       />
       <div className="mx-auto mt-16 max-w-2xl space-y-10">
         {cv.experience.map((experience, index) => (
           <TimelineItem
             key={`${experience.company}-${experience.period}`}
             experience={experience}
+            index={index}
             isLast={index === cv.experience.length - 1}
           />
         ))}

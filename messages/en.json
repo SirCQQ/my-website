@@ -19,6 +19,23 @@
   "localeSwitcher": {
     "label": "Change language"
   },
+  "motion": {
+    "disable": "Disable animations",
+    "enable": "Enable animations"
+  },
+  "commandPalette": {
+    "triggerLabel": "Search or run a command...",
+    "description": "Search for a page, or run a command",
+    "placeholder": "Type a command or search...",
+    "empty": "No results found.",
+    "groupNavigation": "Navigate",
+    "groupArticles": "Articles",
+    "groupActions": "Actions",
+    "groupLinks": "Links",
+    "setTheme": "Switch to {theme} theme",
+    "switchLanguage": "Switch to {language}",
+    "sendEmail": "Send an email"
+  },
   "hero": {
     "greeting": "Hi, I'm",
     "roles": ["front-end developer", "back-end developer", "full-stack developer"],
@@ -39,7 +56,7 @@
   "work": {
     "eyebrow": "Career",
     "title": "Work experience",
-    "description": "Six-plus years building and scaling web applications across fintech, supply chain, and digital publishing.",
+    "description": "{years}+ years building and scaling web applications across fintech, supply chain, and digital publishing.",
     "educationTitle": "Education"
   },
   "articles": {

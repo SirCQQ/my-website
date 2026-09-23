@@ -13,9 +13,9 @@ export async function ProjectsSection({ projects }: { projects: Project[] }) {
         title={t("title")}
         description={t("description")}
       />
-      <div className="mx-auto mt-12 grid max-w-4xl gap-6 sm:grid-cols-2">
-        {projects.map((project) => (
-          <ProjectCard key={project.name} project={project} />
+      <div className="mx-auto mt-12 flex max-w-2xl flex-col gap-10">
+        {projects.map((project, index) => (
+          <ProjectCard key={project.name} project={project} index={index} />
         ))}
       </div>
     </Section>

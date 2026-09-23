@@ -1,23 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
+import { routing, type Locale } from "@/i18n/routing";
 import { ThemeProvider } from "@/components/theme-provider";
+import { MotionProvider } from "@/components/motion-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "@/lib/site-config";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
+import { DevConsole } from "@/components/dev-console";
+import { getAllArticles } from "@/lib/content/articles";
+import { buildSocialMetadata } from "@/lib/seo";
 import "../globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
@@ -34,6 +33,9 @@ export async function generateMetadata({
     },
     description: t("description"),
     metadataBase: new URL(siteConfig.url),
+    // Sitewide fallback — every page overrides these with its own
+    // title/description via buildSocialMetadata().
+    ...buildSocialMetadata(locale as Locale, t("title"), t("description")),
   };
 }
 
@@ -51,19 +53,24 @@ export default async function RootLayout({
   }
   setRequestLocale(locale);
 
+  const articles = getAllArticles(locale);
+
   return (
     <html
       lang={locale}
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${jetbrainsMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <NextIntlClientProvider>
           <ThemeProvider>
-            <SiteHeader />
-            <main className="flex flex-1 flex-col">{children}</main>
-            <SiteFooter />
-            <Toaster />
+            <MotionProvider>
+              <SiteHeader articles={articles} />
+              <main className="flex flex-1 flex-col">{children}</main>
+              <SiteFooter />
+              <Toaster />
+              <DevConsole />
+            </MotionProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

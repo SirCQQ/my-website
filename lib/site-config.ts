@@ -8,7 +8,7 @@ export const siteConfig = {
   email: "gatucristian@gmail.com",
   links: {
     // TODO: add your GitHub profile URL
-    github: "",
+    github: "https://github.com/SirCQQ",
     linkedin: "https://www.linkedin.com/in/cristian-gatu-06b0811a1/",
   },
   nav: [

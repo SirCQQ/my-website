@@ -6,7 +6,8 @@ import { ProjectsSection } from "@/components/site/projects-section";
 import { ContactSection } from "@/components/site/contact-section";
 import { getCvContent } from "@/lib/content/cv";
 import type { Locale } from "@/i18n/routing";
-import { buildLanguageAlternates } from "@/lib/seo";
+import { buildAlternates, buildSocialMetadata } from "@/lib/seo";
+import { siteConfig } from "@/lib/site-config";
 
 export async function generateMetadata({
   params,
@@ -16,7 +17,8 @@ export async function generateMetadata({
 
   return {
     title: t("title"),
-    alternates: { languages: buildLanguageAlternates("") },
+    alternates: buildAlternates("", locale as Locale),
+    ...buildSocialMetadata(locale as Locale, t("title"), t("description")),
   };
 }
 
@@ -26,8 +28,27 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
 
   const cv = getCvContent(locale as Locale);
 
+  const personJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    jobTitle: "Full-Stack Developer",
+    description: cv.summary,
+    address: { "@type": "PostalAddress", addressLocality: siteConfig.location },
+    email: `mailto:${siteConfig.email}`,
+    sameAs: [siteConfig.links.github, siteConfig.links.linkedin].filter(Boolean),
+    knowsAbout: cv.coreSkills,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <Hero summary={cv.summary} />
       <AboutSection paragraphs={cv.about.paragraphs} coreSkills={cv.coreSkills} />
       <ProjectsSection projects={cv.projects} />

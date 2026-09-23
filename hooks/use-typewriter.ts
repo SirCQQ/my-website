@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useSyncExternalStore } from "react";
+import { useMotionPreference } from "@/components/motion-provider";
 
 const TYPING_SPEED_MS = 55;
 const DELETING_SPEED_MS = 30;
@@ -23,7 +24,9 @@ function usePrefersReducedMotion(): boolean {
 }
 
 export function useTypewriter(words: string[]): string {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const osReducedMotion = usePrefersReducedMotion();
+  const { reduceMotion: manualReducedMotion } = useMotionPreference();
+  const prefersReducedMotion = osReducedMotion || manualReducedMotion;
   const [text, setText] = useState(words[0] ?? "");
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -57,6 +60,6 @@ export function useTypewriter(words: string[]): string {
     return () => clearTimeout(timeout);
   }, [text, isDeleting, wordIndex, words, prefersReducedMotion]);
 
-  if (prefersReducedMotion) return words[0] ?? "";
+  if (prefersReducedMotion) return words[words.length - 1] ?? words[0] ?? "";
   return text;
 }

@@ -4,7 +4,7 @@ import { Section, SectionHeading } from "@/components/ui/section";
 import { ArticleCard } from "@/components/site/article-card";
 import { getAllArticles } from "@/lib/content/articles";
 import type { Locale } from "@/i18n/routing";
-import { buildLanguageAlternates } from "@/lib/seo";
+import { buildAlternates, buildSocialMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -14,7 +14,8 @@ export async function generateMetadata({
 
   return {
     title: t("title"),
-    alternates: { languages: buildLanguageAlternates("/articles") },
+    alternates: buildAlternates("/articles", locale as Locale),
+    ...buildSocialMetadata(locale as Locale, t("title"), t("description")),
   };
 }
 

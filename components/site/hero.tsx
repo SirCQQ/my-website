@@ -11,7 +11,7 @@ export function Hero({ summary }: { summary: string }) {
 
   return (
     <section className="py-28 sm:py-36">
-      <Container className="flex flex-col items-start gap-6">
+      <Container className="flex flex-col items-center gap-6 text-center">
         <p className="text-sm font-medium tracking-wide text-muted-foreground uppercase">
           {t("greeting")}
         </p>
@@ -24,7 +24,7 @@ export function Hero({ summary }: { summary: string }) {
         <p className="max-w-xl text-lg text-balance text-muted-foreground">
           {summary}
         </p>
-        <div className="flex flex-wrap gap-3 pt-2">
+        <div className="flex flex-wrap justify-center gap-3 pt-2">
           <Button asChild size="lg">
             <Link href="/#projects">{t("ctaProjects")}</Link>
           </Button>

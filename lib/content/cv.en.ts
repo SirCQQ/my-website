@@ -2,10 +2,10 @@ import type { CvContent } from "./cv";
 
 export const en: CvContent = {
   summary:
-    "Senior Full-Stack Engineer with 6+ years of experience designing and scaling API-driven systems across fintech, supply chain, and digital publishing. Deep expertise in React, Next.js, Node.js, GraphQL, and PostgreSQL, with a strong focus on system architecture, performance, and cloud infrastructure (AWS). Comfortable driving technical decisions, partnering with architects on system design, and mentoring junior engineers.",
+    "Senior Full-Stack Engineer with {{years}}+ years of experience designing and scaling API-driven systems across fintech, supply chain, and digital publishing. Deep expertise in React, Next.js, Node.js, GraphQL, and PostgreSQL, with a strong focus on system architecture, performance, and cloud infrastructure (AWS). Comfortable driving technical decisions, partnering with architects on system design, and mentoring junior engineers.",
   about: {
     paragraphs: [
-      "I'm a Senior Full-Stack Engineer based in Iași, Romania, with 6+ years of experience building and scaling API-driven systems for fintech, supply chain, and digital publishing companies. My day-to-day centers on React, Next.js, Node.js, GraphQL, and PostgreSQL, but I care just as much about the system around the code — architecture, performance, and the cloud infrastructure it runs on.",
+      "I'm a Senior Full-Stack Engineer based in Iași, Romania, with {{years}}+ years of experience building and scaling API-driven systems for fintech, supply chain, and digital publishing companies. My day-to-day centers on React, Next.js, Node.js, GraphQL, and PostgreSQL, but I care just as much about the system around the code — architecture, performance, and the cloud infrastructure it runs on.",
       "I've led legacy rewrites, built products from scratch, and spent a lot of time in the unglamorous but critical work of keeping distributed systems reliable. I like partnering closely with architects on system design, and I enjoy mentoring junior engineers — a good code review is one of the best ways I know to level up a team.",
       "Outside of client work, I keep a couple of side projects running, including this site, and I'm always looking for the next interesting problem to dig into.",
     ],
@@ -164,7 +164,27 @@ export const en: CvContent = {
       description:
         "Freelance internal tool for drafting and editing contracts and amendments, with an integrated client database.",
       period: "2022 – present (occasional maintenance)",
+      url: "https://catenaelectric.ro/",
+      image: "/images/catena.jpg",
       stack: ["Next.js", "MongoDB"],
+    },
+    {
+      name: "Seed2Shelf",
+      description:
+        "A SaaS platform helping production labs manage inventory, transport, and workflow, including integration with Metrc. Owned the front-end and API architecture.",
+      period: "December 2021 – July 2022",
+      url: "http://seed2shelf.us/",
+      image: "/images/s2s-logo.png",
+      stack: ["TypeScript", "Node.js", "React", "Next.js", "NestJS", "MariaDB"],
+    },
+    {
+      name: "Powercode",
+      description:
+        "An application helping telecom providers (TV, Internet, Telephone) manage clients and services — invoice generation, notifications, and permission management.",
+      period: "February 2019 – April 2020",
+      url: "https://powercode.com",
+      image: "/images/powercode-logo.png",
+      stack: ["JavaScript", "TypeScript", "Node.js", "React", "GraphQL", "MySQL"],
     },
     {
       name: "Personal Portfolio",
