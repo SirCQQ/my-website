@@ -25,12 +25,12 @@ export async function generateMetadata({
   const availableLocales = routing.locales.filter(
     (loc) => getArticleBySlug(loc, slug) !== null
   );
-  const languages = Object.fromEntries(
+  const languages: Record<string, string> = Object.fromEntries(
     availableLocales.map((loc) => [
       loc,
       `${siteConfig.url}/${loc}/articles/${slug}`,
     ])
-  ) as Partial<Record<Locale, string>>;
+  );
   const xDefaultLocale = availableLocales.includes(routing.defaultLocale)
     ? routing.defaultLocale
     : availableLocales[0];
