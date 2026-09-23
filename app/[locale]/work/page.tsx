@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { Download } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Section, SectionHeading } from "@/components/ui/section";
+import { Button } from "@/components/ui/button";
 import { TimelineItem } from "@/components/site/timeline-item";
 import { getCvContent, getYearsOfExperience } from "@/lib/content/cv";
 import type { Locale } from "@/i18n/routing";
@@ -35,6 +37,14 @@ export default async function WorkPage({ params }: PageProps<"/[locale]/work">) 
         title={t("title")}
         description={t("description", { years: getYearsOfExperience() })}
       />
+      <div className="mx-auto mt-8 flex max-w-2xl justify-center">
+        <Button asChild variant="outline">
+          <a href={`/${locale}/work/cv.pdf`}>
+            <Download className="size-4" />
+            {t("downloadCv")}
+          </a>
+        </Button>
+      </div>
       <div className="mx-auto mt-16 max-w-2xl space-y-10">
         {cv.experience.map((experience, index) => (
           <TimelineItem

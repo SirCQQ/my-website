@@ -57,7 +57,8 @@
     "eyebrow": "Career",
     "title": "Work experience",
     "description": "{years}+ years building and scaling web applications across fintech, supply chain, and digital publishing.",
-    "educationTitle": "Education"
+    "educationTitle": "Education",
+    "downloadCv": "Download CV (PDF)"
   },
   "articles": {
     "eyebrow": "Writing",
@@ -87,8 +88,23 @@
     "rights": "All rights reserved."
   },
   "notFound": {
-    "title": "Page not found",
-    "description": "The page you're looking for doesn't exist or has moved.",
-    "homeLink": "Back to homepage"
+    "hint": "Here's what's actually here — or type a page below and hit enter (English or Română both work):",
+    "inputLabel": "Type a page name and press enter"
+  },
+  "github": {
+    "eyebrow": "Live from GitHub",
+    "title": "Recent activity",
+    "description": "What I've been pushing lately — pulled straight from GitHub, updated hourly.",
+    "viewProfile": "View full profile on GitHub",
+    "push": "Pushed {count, plural, one {# commit} other {# commits}} to {repo}",
+    "create": "Created {repo}",
+    "pullRequestOpened": "Opened a pull request in {repo}",
+    "pullRequestMerged": "Merged a pull request in {repo}",
+    "pullRequestClosed": "Closed a pull request in {repo}",
+    "issueOpened": "Opened an issue in {repo}",
+    "issueClosed": "Closed an issue in {repo}",
+    "release": "Published a release in {repo}",
+    "fork": "Forked {repo}",
+    "star": "Starred {repo}"
   }
 }

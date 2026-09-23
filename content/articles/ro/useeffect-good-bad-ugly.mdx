@@ -1,0 +1,66 @@
+---
+title: "Bunul, răul și urâtul lui useEffect"
+date: "2026-09-23"
+excerpt: "useEffect e hook-ul la care toată lumea ajunge prima și pe care îl înțelege ultima. Unde își merită locul, unde devine un semnal de alarmă și unde chiar strică lucrurile."
+tags: ["React", "Hooks"]
+---
+
+useEffect e tratat ca ciocanul implicit pentru „fă ceva când se schimbă altceva" în React. E primul hook pe care majoritatea îl învață după useState și cel care provoacă cele mai multe probleme, în tăcere. După destui ani de scris (și depanat) React, regula mea e simplă: useEffect e pentru sincronizarea componentei cu ceva din afara React. Restul e semnal de alarmă.
+
+## Bunul
+
+Efectele sunt unealta potrivită pentru sincronizare externă — abonare la un API de browser, deschiderea unui WebSocket, sincronizarea titlului paginii, integrarea unui widget care nu e din React. State-ul din React se schimbă; ceva din afara React trebuie să afle.
+
+```tsx
+useEffect(() => {
+  const controller = new AbortController();
+  fetch(`/api/search?q=${query}`, { signal: controller.signal })
+    .then((res) => res.json())
+    .then(setResults)
+    .catch(() => {});
+
+  return () => controller.abort();
+}, [query]);
+```
+
+Ăsta e un efect legitim: state-ul din React (`query`) declanșează ceva din afara React (un request de rețea), iar funcția de cleanup anulează request-ul în curs dacă `query` se schimbă din nou înainte ca acesta să se rezolve. Fără efect, fără cleanup, ai avea race conditions.
+
+## Răul
+
+Cea mai frecventă greșeală: derivarea unui state din alt state.
+
+```tsx
+// nu așa
+const [fullName, setFullName] = useState("");
+useEffect(() => {
+  setFullName(`${firstName} ${lastName}`);
+}, [firstName, lastName]);
+
+// ci simplu, așa
+const fullName = `${firstName} ${lastName}`;
+```
+
+Varianta cu efect randează de două ori — o dată cu `fullName` vechi, o dată după ce efectul rulează și programează o a doua randare — fără niciun beneficiu. Dacă o valoare poate fi calculată în timpul randării, calculeaz-o în timpul randării. Același principiu se aplică la resetarea state-ului când se schimbă un prop: un prop `key` care remontează componenta e de obicei mai simplu și mai corect decât un efect care resetează manual state-ul.
+
+## Urâtul
+
+Array-ul de dependențe e locul unde efectele trec de la „puțin risipitor" la „complet greșit". Două moduri în care am văzut asta mușcând în producție:
+
+**Closure-uri învechite (stale).** Un efect capturează valorile din randarea în care a fost creat. Omite o dependență ca să „eviți rerularea" și efectul continuă, în tăcere, să folosească o valoare veche la nesfârșit.
+
+```tsx
+useEffect(() => {
+  const id = setInterval(() => {
+    console.log(count); // afișează mereu count-ul din prima randare
+  }, 1000);
+  return () => clearInterval(id);
+}, []); // lipsește `count` — eslint-plugin-react-hooks o să te avertizeze, ascultă-l
+```
+
+**Configurație citită o singură dată, la mount.** Unele librării citesc un prop sau o valoare din context exact o dată, în interiorul propriului efect intern, și niciodată din nou — indiferent de câte ori se re-randează componenta ta. Am dat peste asta recent cu o librărie de animații a cărei setare „reduce animațiile" era citită o singură dată, la montarea provider-ului; comutarea setării ulterior nu făcea nimic, pentru că nimic nu forța librăria să o recitească. Soluția n-a fost un efect mai deștept, ci acceptarea faptului că unele librării nu sunt reactive la o valoare după mount, și forțarea unui remount (`key={settingValue}`) atunci când acea valoare chiar trebuie să aibă efect.
+
+Dubla invocare din Strict Mode în development merită și ea internalizată, nu combătută: dacă efectul tău se strică atunci când rulează de două ori, efectul era deja nesigur — Strict Mode doar a scos asta la iveală.
+
+## Unde ne lasă asta
+
+Înainte să scrii `useEffect`, întreabă-te cu ce sincronizează componenta ta. Dacă răspunsul e „cu o altă bucată de state din React", probabil n-ai nevoie de el. Dacă răspunsul e „cu DOM-ul, cu un abonament, cu un request de rețea sau cu altceva din afara randării React", atunci își face treaba — asigură-te doar că array-ul de dependențe spune adevărul și lasă cleanup-ul să-și facă treaba.

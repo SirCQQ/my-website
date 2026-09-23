@@ -1,0 +1,63 @@
+---
+title: "How to implement debounce the easy way"
+date: "2026-09-23"
+excerpt: "You don't need a library for debounce. A ten-line hook covers almost every case — here's how it works and when to reach for something more."
+tags: ["React", "Hooks", "Performance"]
+---
+
+Debounce shows up in the same few places over and over: a search box that shouldn't fire a request on every keystroke, a resize handler that shouldn't run on every pixel, a save-as-you-type form that shouldn't hit the network every character. The concept is simple — wait for a pause before doing the thing — and the implementation is simpler than most people expect.
+
+## The plain-JavaScript version
+
+Forget React for a second. A debounce is a function that wraps another function and delays it, resetting the delay every time it's called again before it fires.
+
+```ts
+function debounce<Args extends unknown[]>(
+  fn: (...args: Args) => void,
+  delayMs: number
+) {
+  let timeoutId: ReturnType<typeof setTimeout>;
+
+  return (...args: Args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn(...args), delayMs);
+  };
+}
+```
+
+That's the whole thing. Every call cancels the pending timeout and schedules a new one; the wrapped function only runs once the calls stop coming for `delayMs`.
+
+## Wrapping it for React: a debounced value
+
+In a component, what you usually want isn't a debounced function — it's a debounced *value*, so the rest of your component can just read it like normal state.
+
+```tsx
+function useDebouncedValue<T>(value: T, delayMs: number): T {
+  const [debounced, setDebounced] = useState(value);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => setDebounced(value), delayMs);
+    return () => clearTimeout(timeoutId);
+  }, [value, delayMs]);
+
+  return debounced;
+}
+```
+
+Usage is a single line:
+
+```tsx
+const [query, setQuery] = useState("");
+const debouncedQuery = useDebouncedValue(query, 300);
+
+useEffect(() => {
+  if (!debouncedQuery) return;
+  fetchResults(debouncedQuery);
+}, [debouncedQuery]);
+```
+
+The input updates immediately — no lag while typing — and `debouncedQuery` only catches up 300ms after you stop. The cleanup function is what makes this correct: every keystroke clears the previous timeout before scheduling a new one, so only the last one in a burst ever fires.
+
+## When you'd want more than this
+
+This covers the large majority of real cases. Reach for a library (`use-debounce`, `lodash.debounce`) when you need things this hook doesn't do out of the box: a leading-edge call (fire immediately, then ignore the burst), a `maxWait` ceiling so a value that never stops changing still updates occasionally, or debouncing a callback ref instead of a value. Until you actually need one of those, the ten lines above are one less dependency to install and one less API to learn.

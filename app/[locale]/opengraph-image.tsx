@@ -3,23 +3,11 @@ import { getTranslations } from "next-intl/server";
 import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/lib/site-config";
+import { loadGoogleFont } from "@/lib/google-font";
 
 export const alt = siteConfig.name;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-async function loadGoogleFont(text: string, weight: number) {
-  const url = `https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@${weight}&text=${encodeURIComponent(text)}`;
-  const css = await (await fetch(url)).text();
-  const match = css.match(/src: url\(([^)]+)\) format\('(?:opentype|truetype)'\)/);
-
-  if (match) {
-    const response = await fetch(match[1]);
-    if (response.ok) return response.arrayBuffer();
-  }
-
-  throw new Error("Failed to load Google Font for the OG image");
-}
 
 export default async function Image({
   params,

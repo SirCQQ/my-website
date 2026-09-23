@@ -1,0 +1,63 @@
+---
+title: "Cum implementezi debounce, în varianta simplă"
+date: "2026-09-23"
+excerpt: "Nu ai nevoie de o librărie pentru debounce. Un hook de zece linii acoperă aproape toate cazurile — cum funcționează și când merită totuși ceva mai mult."
+tags: ["React", "Hooks", "Performanță"]
+---
+
+Debounce apare mereu în aceleași câteva locuri: un câmp de căutare care nu trebuie să facă un request la fiecare apăsare de tastă, un handler de resize care nu trebuie să ruleze la fiecare pixel, un formular salvat-pe-măsură-ce-scrii care nu trebuie să lovească rețeaua la fiecare caracter. Conceptul e simplu — aștepți o pauză înainte să faci lucrul respectiv — iar implementarea e mai simplă decât se așteaptă majoritatea.
+
+## Varianta în JavaScript simplu
+
+Uită de React pentru o secundă. Un debounce e o funcție care înfășoară altă funcție și îi întârzie execuția, resetând întârzierea de fiecare dată când e apelată din nou înainte să se declanșeze.
+
+```ts
+function debounce<Args extends unknown[]>(
+  fn: (...args: Args) => void,
+  delayMs: number
+) {
+  let timeoutId: ReturnType<typeof setTimeout>;
+
+  return (...args: Args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn(...args), delayMs);
+  };
+}
+```
+
+Asta e tot. Fiecare apel anulează timeout-ul în așteptare și programează unul nou; funcția înfășurată rulează abia când apelurile se opresc pentru `delayMs`.
+
+## Adaptat pentru React: o valoare debounced
+
+Într-o componentă, de obicei nu ai nevoie de o funcție debounced, ci de o *valoare* debounced, ca restul componentei s-o poată citi normal, ca pe orice state.
+
+```tsx
+function useDebouncedValue<T>(value: T, delayMs: number): T {
+  const [debounced, setDebounced] = useState(value);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => setDebounced(value), delayMs);
+    return () => clearTimeout(timeoutId);
+  }, [value, delayMs]);
+
+  return debounced;
+}
+```
+
+Folosirea e o singură linie:
+
+```tsx
+const [query, setQuery] = useState("");
+const debouncedQuery = useDebouncedValue(query, 300);
+
+useEffect(() => {
+  if (!debouncedQuery) return;
+  fetchResults(debouncedQuery);
+}, [debouncedQuery]);
+```
+
+Input-ul se actualizează imediat — fără lag în timp ce scrii — iar `debouncedQuery` se aliniază abia la 300ms după ce te oprești din scris. Funcția de cleanup e cea care face asta corect: fiecare tastă apăsată șterge timeout-ul anterior înainte să programeze unul nou, deci din tot ce ai scris rapid, doar ultimul apel se declanșează vreodată.
+
+## Când merită mai mult de atât
+
+Asta acoperă marea majoritate a cazurilor reale. Apelează la o librărie (`use-debounce`, `lodash.debounce`) când ai nevoie de lucruri pe care hook-ul ăsta nu le face din start: un apel leading-edge (declanșare imediată, apoi ignorarea rafalei), un plafon `maxWait` ca o valoare care nu se oprește niciodată din schimbat să tot fie actualizată din când în când, sau debounce pe un callback ref în loc de o valoare. Până când chiar ai nevoie de așa ceva, cele zece linii de mai sus înseamnă o dependență mai puțin de instalat și un API mai puțin de învățat.

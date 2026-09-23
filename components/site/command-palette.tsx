@@ -35,6 +35,7 @@ import { siteConfig } from "@/lib/site-config";
 import { GithubIcon, LinkedinIcon } from "@/components/icons";
 import type { ArticleSummary } from "@/lib/content/articles";
 import { stripDiacritics } from "@/lib/utils";
+import { keywordsFor } from "@/lib/multilingual-search";
 
 function diacriticInsensitiveFilter(
   value: string,
@@ -131,6 +132,7 @@ export function CommandPalette({ articles }: { articles: ArticleSummary[] }) {
                 <CommandItem
                   key={item.key}
                   value={label}
+                  keywords={keywordsFor("nav", item.key)}
                   onSelect={() => run(() => router.push(item.href))}
                 >
                   <Icon />
@@ -163,6 +165,7 @@ export function CommandPalette({ articles }: { articles: ArticleSummary[] }) {
           <CommandGroup heading={t("groupActions")}>
             <CommandItem
               value={t("setTheme", { theme: tTheme("light") })}
+              keywords={keywordsFor("theme", "light")}
               onSelect={() => run(() => setTheme("light"))}
             >
               <Sun />
@@ -170,6 +173,7 @@ export function CommandPalette({ articles }: { articles: ArticleSummary[] }) {
             </CommandItem>
             <CommandItem
               value={t("setTheme", { theme: tTheme("dark") })}
+              keywords={keywordsFor("theme", "dark")}
               onSelect={() => run(() => setTheme("dark"))}
             >
               <Moon />
@@ -177,6 +181,7 @@ export function CommandPalette({ articles }: { articles: ArticleSummary[] }) {
             </CommandItem>
             <CommandItem
               value={t("setTheme", { theme: tTheme("system") })}
+              keywords={keywordsFor("theme", "system")}
               onSelect={() => run(() => setTheme("system"))}
             >
               <Laptop />
@@ -184,6 +189,7 @@ export function CommandPalette({ articles }: { articles: ArticleSummary[] }) {
             </CommandItem>
             <CommandItem
               value={reduceMotion ? tMotion("enable") : tMotion("disable")}
+              keywords={keywordsFor("motion", reduceMotion ? "enable" : "disable")}
               onSelect={() => run(() => setReduceMotion(!reduceMotion))}
             >
               {reduceMotion ? <Zap /> : <ZapOff />}
@@ -244,6 +250,7 @@ export function CommandPalette({ articles }: { articles: ArticleSummary[] }) {
             </CommandItem>
             <CommandItem
               value={t("sendEmail")}
+              keywords={keywordsFor("commandPalette", "sendEmail")}
               onSelect={() =>
                 run(() => {
                   window.location.href = `mailto:${siteConfig.email}`;

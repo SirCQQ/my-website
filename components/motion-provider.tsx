@@ -7,7 +7,6 @@ import {
   useSyncExternalStore,
   type ReactNode,
 } from "react";
-import { MotionConfig } from "motion/react";
 
 const STORAGE_KEY = "reduce-motion";
 
@@ -52,16 +51,17 @@ export function MotionProvider({ children }: { children: ReactNode }) {
     document.documentElement.toggleAttribute("data-reduce-motion", reduceMotion);
   }, [reduceMotion]);
 
+  // No MotionConfig wrapper here on purpose: motion/react only reads its
+  // reducedMotion setting once, at mount, so it can't react to this toggle
+  // changing later anyway (see project-card.tsx / timeline-item.tsx, which
+  // read reduceMotion from this context directly and remount themselves).
+  // Wrapping the whole app would also force every page to load motion/react,
+  // even pages with no animated content.
   return (
     <MotionContext.Provider
       value={{ reduceMotion, setReduceMotion: setStoredReduceMotion }}
     >
-      {/* "user" respects the OS-level prefers-reduced-motion automatically;
-          "always" forces every motion/react animation off when the header
-          toggle is on, regardless of the OS setting. */}
-      <MotionConfig reducedMotion={reduceMotion ? "always" : "user"}>
-        {children}
-      </MotionConfig>
+      {children}
     </MotionContext.Provider>
   );
 }

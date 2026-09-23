@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -11,6 +12,7 @@ import { siteConfig } from "@/lib/site-config";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { DevConsole } from "@/components/dev-console";
+import { ConsoleEasterEgg } from "@/components/console-easter-egg";
 import { getAllArticles } from "@/lib/content/articles";
 import { buildSocialMetadata } from "@/lib/seo";
 import "../globals.css";
@@ -70,6 +72,8 @@ export default async function RootLayout({
               <SiteFooter />
               <Toaster />
               <DevConsole />
+              <ConsoleEasterEgg />
+              <Analytics />
             </MotionProvider>
           </ThemeProvider>
         </NextIntlClientProvider>

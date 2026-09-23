@@ -1,0 +1,66 @@
+---
+title: "The good, the bad, and the ugly of useEffect"
+date: "2026-09-23"
+excerpt: "useEffect is the hook everyone reaches for first and understands last. Where it earns its place, where it becomes a code smell, and where it actively breaks things."
+tags: ["React", "Hooks"]
+---
+
+useEffect gets treated as the default hammer for "do a thing when something changes" in React. It's the first hook most people learn beyond useState, and the one that quietly causes the most trouble. After enough years of writing (and debugging) React, my rule of thumb is simple: useEffect is for synchronizing your component with something outside React. Everything else is a smell.
+
+## The good
+
+Effects are the right tool for external synchronization — subscribing to a browser API, opening a WebSocket, syncing a document title, integrating a non-React widget. React state changes; something outside React needs to know.
+
+```tsx
+useEffect(() => {
+  const controller = new AbortController();
+  fetch(`/api/search?q=${query}`, { signal: controller.signal })
+    .then((res) => res.json())
+    .then(setResults)
+    .catch(() => {});
+
+  return () => controller.abort();
+}, [query]);
+```
+
+That's a legitimate effect: React state (`query`) drives something outside React (a network request), and the cleanup function cancels the in-flight request if `query` changes again before it resolves. No effect, no cleanup — you'd hit race conditions.
+
+## The bad
+
+The most common misuse: deriving state from other state.
+
+```tsx
+// don't
+const [fullName, setFullName] = useState("");
+useEffect(() => {
+  setFullName(`${firstName} ${lastName}`);
+}, [firstName, lastName]);
+
+// just this
+const fullName = `${firstName} ${lastName}`;
+```
+
+The effect version renders twice — once with a stale `fullName`, once after the effect runs and schedules a second render — for zero benefit. If a value can be computed during render, compute it during render. The same applies to resetting state when a prop changes: a `key` prop that remounts the component is usually simpler and more correct than an effect that manually resets state.
+
+## The ugly
+
+The dependency array is where effects go from "slightly wasteful" to "actively wrong." Two ways I've seen it bite in production:
+
+**Stale closures.** An effect captures the values from the render it was created in. Omit a dependency to "avoid re-running" and the effect quietly keeps using an old value forever.
+
+```tsx
+useEffect(() => {
+  const id = setInterval(() => {
+    console.log(count); // always logs the count from the first render
+  }, 1000);
+  return () => clearInterval(id);
+}, []); // missing `count` — eslint-plugin-react-hooks will flag this, listen to it
+```
+
+**Config read once at mount.** Some libraries read a prop or context value exactly once, inside their own internal effect, and never again — no matter how many times your component re-renders. I hit this recently with a motion library whose "reduce animations" setting was read once when the provider mounted; toggling the setting afterward did nothing, because nothing forced the library to re-read it. The fix wasn't a smarter effect, it was accepting that some libraries aren't reactive to a value after mount, and forcing a remount (`key={settingValue}`) when that value needs to actually take effect.
+
+Strict Mode's double-invocation in development is also worth internalizing rather than fighting: if your effect breaks when it runs twice, the effect was already unsafe — it just took Strict Mode to surface it.
+
+## Where that leaves us
+
+Before writing `useEffect`, ask what it's synchronizing your component *with*. If the answer is "another piece of React state," you probably don't need it. If the answer is "the DOM, a subscription, a network request, or something else outside React's render," it's doing its job — just make sure the dependency array tells the truth, and let cleanup do its work.

@@ -57,7 +57,8 @@
     "eyebrow": "Carieră",
     "title": "Experiență profesională",
     "description": "Peste {years} ani de experiență în construirea și scalarea aplicațiilor web în fintech, supply chain și publicare digitală.",
-    "educationTitle": "Educație"
+    "educationTitle": "Educație",
+    "downloadCv": "Descarcă CV (PDF)"
   },
   "articles": {
     "eyebrow": "Scriu despre",
@@ -87,8 +88,23 @@
     "rights": "Toate drepturile rezervate."
   },
   "notFound": {
-    "title": "Pagina nu a fost găsită",
-    "description": "Pagina pe care o cauți nu există sau a fost mutată.",
-    "homeLink": "Înapoi la pagina principală"
+    "hint": "Iată ce chiar există aici — sau scrie o pagină mai jos și apasă enter (merge și în engleză, și în română):",
+    "inputLabel": "Scrie numele unei pagini și apasă enter"
+  },
+  "github": {
+    "eyebrow": "Live de pe GitHub",
+    "title": "Activitate recentă",
+    "description": "Ce am mai lucrat de curând — preluat direct de pe GitHub, actualizat din oră în oră.",
+    "viewProfile": "Vezi profilul complet pe GitHub",
+    "push": "{count, plural, one {A trimis # commit} few {A trimis # commit-uri} other {A trimis # de commit-uri}} către {repo}",
+    "create": "A creat {repo}",
+    "pullRequestOpened": "A deschis un pull request în {repo}",
+    "pullRequestMerged": "A făcut merge la un pull request în {repo}",
+    "pullRequestClosed": "A închis un pull request în {repo}",
+    "issueOpened": "A deschis un issue în {repo}",
+    "issueClosed": "A închis un issue în {repo}",
+    "release": "A publicat un release în {repo}",
+    "fork": "A făcut fork la {repo}",
+    "star": "A dat star la {repo}"
   }
 }
